@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+
+# Generated files
+output/
+
+# User-specific data
+data/userdata.json
+
+# OS
+.DS_Store
+Thumbs.db

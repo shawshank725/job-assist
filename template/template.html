@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>{{ name }}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 0.5cm;
+        }
+
+        body {
+            margin: 0;
+            padding: 5px;
+        }
+
+        p,
+        div,
+        span,
+        strong,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        hr {
+            padding: 0px;
+            margin: 0px;
+        }
+
+        ul {
+            padding-bottom: 0px;
+            padding-top: 0px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+        }
+
+        .education_degree_date_container {
+            display: flex;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1 style="text-align: center;">{{ name }}</h1>
+
+        <p style="text-align: center;">
+            {{ role }}
+        </p>
+
+        <p style="text-align: center;">
+            {{ phone_number }} |
+            {{ email }} |
+            <a href="{{ linkedin_url }}">LinkedIn</a> |
+            <a href="{{ github_url }}">GitHub</a>
+        </p>
+    </header>
+
+    <div>
+        <h3>Summary</h3>
+        <p>{{ summary }}</p>
+    </div>
+    <hr>
+    <div>
+        <h3>Education</h3>
+
+        {% for education in education_list %}
+        <div>
+            <p><strong>{{ education.college_name }}</strong></p>
+            <div class="education_degree_date_container">
+                <p>{{ education.degree }}</p>
+                <p>{{ education.start_date }} - {{ education.end_date }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <hr>
+    <div>
+        <h3>Experience</h3>
+
+        {% for experience in experiences %}
+        <div>
+            <p>
+                <strong>{{ experience.role }}</strong> |
+                <a href="{{ experience.company_url }}" target="_blank">
+                    {{ experience.company }}
+                </a> |
+                {{ experience.company_location }} |
+                {{ experience.start_date }} - {{ experience.end_date }}
+            </p>
+
+            <p>
+                <strong>Tech Stack:</strong>
+                {{ experience.tech_stack_used | join(", ") }}
+            </p>
+
+            <ul>
+                {% for item in experience.description %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+
+    </div>
+    <hr>
+    <div>
+        <h3>Projects</h3>
+
+        {% for project in projects %}
+        <div>
+            <p>
+                <a href="{{ project.project_url }}" target="_blank">
+                    <strong>{{ project.project_name }}</strong>
+                </a> |
+                {{ project.start_date }} - {{ project.end_date }}
+            </p>
+            <p>
+                <strong>Tech Stack:</strong>
+                {{ project.tech_stack_used | join(", ") }}
+            </p>
+
+            <ul>
+                {% for item in project.description %}
+                <li>{{ item }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <br>
+        {% endfor %}
+
+    </div>
+    <hr>
+    <div>
+        <h3>Skills</h3>
+
+        {% for category, skill_list in skills.items() %}
+        <ul>
+            <li>
+                <strong>{{ category }}:</strong>
+                {{ skill_list | join(", ") }}
+            </li>
+        </ul>
+        {% endfor %}
+
+    </div>
+    <hr>
+    <div>
+        <h3>Achievements</h3>
+
+        {% for achievement in achievements %}
+        <ul>
+    <li>
+        <p>
+            {% if achievement.achievement_url %}
+                <a href="{{ achievement.achievement_url }}" target="_blank">
+                    <strong>{{ achievement.achievement_name }}</strong>
+                </a>
+            {% else %}
+                <strong>{{ achievement.achievement_name }}</strong>
+            {% endif %}
+
+            {% if achievement.description %}
+                : {{ achievement.description }}
+            {% endif %}
+        </p>
+    </li>
+</ul>
+        {% endfor %}
+
+    </div>
+</body>
+
+</html>
