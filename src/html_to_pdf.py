@@ -4,7 +4,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 OUTPUT_DIR = BASE_DIR / "output"
 
-
+# this file contains the method that converts the HTML to PDF file
 def html_to_pdf(html_path: Path, pdf_name="resume.pdf"):
     pdf_path = OUTPUT_DIR / pdf_name
 
