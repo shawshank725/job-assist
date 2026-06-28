@@ -13,7 +13,7 @@ USER_FILE = DATA_DIR / "userdata.json"
 
 def rewrite_description(settings, job_description, title, tech_stack, description):
     prompt = (
-        settings["prompt"]
+        settings["resume_prompt"]
         + "\n\nJOB DESCRIPTION:\n"
         + job_description
         + "\n\nTITLE:\n"
@@ -68,3 +68,30 @@ def send_jd_to_model(job_description):
 
     print(tailored_data)
     return tailored_data
+
+def create_cover_letter(job_description):
+    settings = load_json("settings.json")
+    user_data = load_json("userdata.json")
+
+    prompt = (
+        settings["cover_letter_prompt"]
+        + "\n\nJOB DESCRIPTION:\n"
+        + job_description
+        + "\n\nUSER DATA (JSON):\n"
+        + json.dumps(user_data, indent=2)
+    )
+
+    response = chat(
+        model=settings["model_name"],
+        messages=[
+            {
+                "role": settings["role"],
+                "content": prompt,
+            }
+        ],
+    )
+
+    cover_letter = response["message"]["content"]
+
+    print(cover_letter)
+    return cover_letter

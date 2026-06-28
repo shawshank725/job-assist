@@ -1,5 +1,6 @@
 import tkinter as tk
 from src.llm import send_jd_to_model
+from src.llm import create_cover_letter
 
 root = tk.Tk()
 root.title("JD Processor")
@@ -13,7 +14,7 @@ text_box.pack(padx=10, pady=10)
 def process_jd():
     jd_text = text_box.get("1.0", tk.END).strip()
     print("Gotten the JD... processing the information...")
-    send_jd_to_model(jd_text)
+    create_cover_letter(jd_text)
     pass
 
 process_button = tk.Button(root, text="Process JD", command=process_jd, 
